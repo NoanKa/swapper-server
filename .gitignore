@@ -31,3 +31,12 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Postgres ###
+db/
+
+### Redis ###
+cache/
+
+### RabbitMQ ###
+queue/
