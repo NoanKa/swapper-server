@@ -10,9 +10,9 @@
 	</parent>
 	<groupId>com.noanka</groupId>
 	<artifactId>swapper</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>swapper</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Swapper Spring Backend Server</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -30,7 +30,17 @@
 		<java.version>21</java.version>
 	</properties>
 	<dependencies>
-		<dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.8.13</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.18.0</version>
+        </dependency>
+        <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-amqp</artifactId>
 		</dependency>

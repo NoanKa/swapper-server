@@ -1,0 +1,10 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: postgres
+    environment:
+      POSTGRES_DB: swapper
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: YaCgzsEXwXi2TRMQ
+    ports:
+      - "5432:5432"
