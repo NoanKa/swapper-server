@@ -19,15 +19,15 @@ services:
     ports:
       - "6379:6379"
   rabbitmq:
-    image: rabbitmq:management-latest
+    image: rabbitmq:management
     container_name: rabbit
     env_file:
       - .env
     volumes:
       - queue:/var/lib/rabbitmq
     ports:
-      - "5672:5672"  # COMMUNICATION
-      - "15672:15672"  # WEB UI
+      - "5672:5672" # COMMUNICATION
+      - "15672:15672" # WEB UI
 
 volumes:
   db:
