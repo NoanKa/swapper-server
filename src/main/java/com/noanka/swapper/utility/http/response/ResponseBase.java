@@ -3,40 +3,38 @@ package com.noanka.swapper.utility.http.response;
 import java.util.List;
 
 public class ResponseBase<T> {
-    private T data;
-    private List<String> message;
-    private List<String> userMessage;
-    private boolean success;
+    private final T data;
+    private final List<String> message;
+    private final List<String> userMessage;
+    private final boolean success;
+
+    public ResponseBase(List<String> message, List<String> userMessage, boolean success){
+        this.data = null;
+        this.message = message;
+        this.userMessage = userMessage;
+        this.success = success;
+    }
+
+    public ResponseBase(T data, List<String> message, List<String> userMessage, boolean success){
+        this.data = data;
+        this.message = message;
+        this.userMessage = userMessage;
+        this.success = success;
+    }
 
     public T getData() {
         return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
     }
 
     public List<String> getMessage() {
         return message;
     }
 
-    public void setMessage(List<String> message) {
-        this.message = message;
-    }
-
     public List<String> getUserMessage() {
         return userMessage;
     }
 
-    public void setUserMessage(List<String> userMessage) {
-        this.userMessage = userMessage;
-    }
-
     public boolean isSuccess() {
         return success;
-    }
-
-    public void setSuccess(boolean success) {
-        this.success = success;
     }
 }
