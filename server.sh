@@ -1,13 +1,29 @@
 #!/bin/bash
 
+generate_sha256_hash() {
+  local password=$1
+  local os=$(uname)
+
+  if [[ "$os" == "Darwin" || "$os" == "Linux" ]]; then
+    # On Linux/macOS (Unix-like systems), use `echo` and `sha256sum` (or `shasum` on macOS)
+    echo -n "$password" | sha256sum | awk '{print $1}'
+  elif [[ "$os" == "CYGWIN"* || "$os" == "MINGW"* ]]; then
+    # On Windows (using Git Bash or WSL), use `echo` and `CertUtil`
+    echo -n "$password" | certutil -hashfile - SHA256 | findstr /v "certutil"
+  else
+    echo "Unsupported OS"
+    exit 1
+  fi
+}
+
+generate_random_password() {
+    tr -dc 'A-Za-z0-9' < /dev/urandom | head -c 16
+}
+
 if [ -f .env ] ; then
     echo ".env file already exists. Skipping environment variable setup."
     else
     echo "Creating .env file with default values."
-
-    generate_random_password() {
-    tr -dc 'A-Za-z0-9' < /dev/urandom | head -c 16
-    }
 
     REDIS_PASSWORD=$(generate_random_password)
     POSTGRES_PASSWORD=$(generate_random_password)
@@ -17,6 +33,8 @@ if [ -f .env ] ; then
     POSTGRES_DB="swapper"
     RABBITMQ_DEFAULT_VHOST="/"
     SEQ_FIRSTRUN_ADMINUSERNAME="admin"
+    SEQ_FIRSTRUN_ADMINPASSWORD=$(generate_random_password)
+    SEQ_FIRSTRUN_ADMINPASSWORDHASH=$(generate_sha256_hash "$SEQ_FIRSTRUN_ADMINPASSWORD")
     ACCEPT_EULA="Y"
     SEQ_FIRSTRUN_APIKEY=$(generate_random_password)
     SEQ_FIRSTRUN_APIKEYSCOPES="Ingest"
@@ -31,6 +49,8 @@ RABBITMQ_DEFAULT_USER=$RABBITMQ_DEFAULT_USER
 RABBITMQ_DEFAULT_PASSW=$RABBITMQ_DEFAULT_PASS
 RABBITMQ_DEFAULT_VHOST=$RABBITMQ_DEFAULT_VHOST
 SEQ_FIRSTRUN_ADMINUSERNAME=$SEQ_FIRSTRUN_ADMINUSERNAME
+SEQ_FIRSTRUN_ADMINPASSWORD=$SEQ_FIRSTRUN_ADMINPASSWORD
+SEQ_FIRSTRUN_ADMINPASSWORDHASH=$SEQ_FIRSTRUN_ADMINPASSWORDHASH
 ACCEPT_EULA=$ACCEPT_EULA
 SEQ_FIRSTRUN_APIKEY=$SEQ_FIRSTRUN_APIKEY
 SEQ_FIRSTRUN_APIKEYSCOPES=$SEQ_FIRSTRUN_APIKEYSCOPES

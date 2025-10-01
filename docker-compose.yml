@@ -35,8 +35,11 @@ services:
       - .env
     ports:
       - "5342:5342" # COMMUNICATION
-      - "5341:5341"   # WEB UI
+      - "5341:5341" # WEB UI
+    volumes:
+      - log:/data
 volumes:
   db:
   cache:
   queue:
+  log:
