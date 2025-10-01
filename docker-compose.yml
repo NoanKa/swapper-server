@@ -28,7 +28,14 @@ services:
     ports:
       - "5672:5672" # COMMUNICATION
       - "15672:15672" # WEB UI
-
+  seq:
+    image: datalust/seq:latest
+    container_name: seq
+    env_file:
+      - .env
+    ports:
+      - "5342:5342" # COMMUNICATION
+      - "5341:5341"   # WEB UI
 volumes:
   db:
   cache:
