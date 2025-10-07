@@ -2,14 +2,18 @@
 
 generate_sha256_hash() {
   local password=$1
-  local os=$(uname)
+  local os
+  os=$(uname)
 
   if [[ "$os" == "Darwin" || "$os" == "Linux" ]]; then
-    # On Linux/macOS (Unix-like systems), use `echo` and `sha256sum` (or `shasum` on macOS)
     echo -n "$password" | sha256sum | awk '{print $1}'
-  elif [[ "$os" == "CYGWIN"* || "$os" == "MINGW"* ]]; then
-    # On Windows (using Git Bash or WSL), use `echo` and `CertUtil`
-    echo -n "$password" | certutil -hashfile - SHA256 | findstr /v "certutil"
+  elif [[ "$os" == "CYGWIN"* || "$os" == "MINGW"* || "$os" == "MSYS"* ]]; then
+    # Create a temp file since certutil can't hash stdin
+    local tmpfile
+    tmpfile=$(mktemp)
+    echo -n "$password" > "$tmpfile"
+    certutil -hashfile "$tmpfile" SHA256 | grep -v -i "certutil" | grep -E "^[0-9A-F]+$"
+    rm -f "$tmpfile"
   else
     echo "Unsupported OS"
     exit 1

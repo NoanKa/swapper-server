@@ -1,4 +1,4 @@
-package com.noanka.swapper.utility.http.response;
+package com.noanka.swapper.utilities.http.response;
 
 import java.util.List;
 
