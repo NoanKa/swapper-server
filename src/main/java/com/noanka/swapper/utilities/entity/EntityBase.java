@@ -22,6 +22,7 @@ public abstract class EntityBase {
     @PrePersist
     protected void onCreate() {
         this.createdAt = System.currentTimeMillis();
+        this.isActive = true;
     }
 
     @PreUpdate
