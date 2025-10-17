@@ -1,6 +1,6 @@
 package com.noanka.swapper.modules.offer.repository.entity;
 
-import com.noanka.swapper.modules.inventory.repository.entity.AssetEntity;
+import com.noanka.swapper.modules.offer.repository.type.OfferStatus;
 import com.noanka.swapper.modules.profile.repository.entity.UserEntity;
 import com.noanka.swapper.utilities.entity.EntityBase;
 import jakarta.persistence.*;
@@ -14,13 +14,13 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "Offer")
 public class OfferEntity extends EntityBase {
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "myAssetId")
-    private AssetEntity myAsset;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private OfferStatus status;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "askedAssetId")
-    private AssetEntity askedAsset;
+    @OneToMany(mappedBy = "offer", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JoinColumn(name = "offerId")
+    private List<OfferAssetEntity> assets;
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")

@@ -1,5 +1,6 @@
 package com.noanka.swapper.modules.inventory.repository.entity;
 
+import com.noanka.swapper.modules.profile.repository.entity.UserEntity;
 import com.noanka.swapper.utilities.entity.EntityBase;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -7,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.UUID;
 
 @Data
 @Entity
@@ -17,20 +17,20 @@ import java.util.UUID;
 public class AssetEntity extends EntityBase {
     @Column(nullable = false, length = 50)
     private String name;
-    @Column(nullable = false)
-    private UUID userId;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinTable(
             name = "AssetType",
-            joinColumns = @JoinColumn(name = "assetId", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "typeId", referencedColumnName = "id")
+            joinColumns = @JoinColumn(name = "assetId"),
+            inverseJoinColumns = @JoinColumn(name = "typeId")
     )
     private List<TypeEntity> types;
-    @JoinTable(
-            name = "AssetAttribute",
-            joinColumns = @JoinColumn(name = "assetId", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "attributeId", referencedColumnName = "id")
-    )
+
+    @OneToMany(mappedBy = "asset", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JoinColumn(name = "assetId")
     private List<AttributeEntity> attributes;
+
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId")
+    private UserEntity owner;
 }

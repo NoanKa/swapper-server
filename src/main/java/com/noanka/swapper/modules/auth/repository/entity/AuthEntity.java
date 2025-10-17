@@ -6,8 +6,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
-
 @Data
 @Entity
 @NoArgsConstructor
@@ -17,8 +15,4 @@ public class AuthEntity extends EntityBase {
     private String email;
     @Column(nullable = false)
     private String password;
-
-    @OneToOne
-    @JoinColumn(name = "userId", nullable = false)
-    private UserEntity user;
 }
