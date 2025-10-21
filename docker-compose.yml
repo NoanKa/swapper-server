@@ -34,8 +34,8 @@ services:
     env_file:
       - .env
     ports:
-      - "5342:5342" # COMMUNICATION
-      - "5341:5341" # WEB UI
+      - "5341:5341" # COMMUNICATION
+      - "5342:80" # WEB UI
     volumes:
       - log:/data
 volumes:
