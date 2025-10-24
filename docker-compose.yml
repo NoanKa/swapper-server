@@ -7,7 +7,8 @@ services:
     volumes:
       - db:/var/lib/postgresql
     ports:
-      - "5432:5432"
+      - "${POSTGRES_PORT}:5432"
+
   redis:
     image: redis:8.2.2
     container_name: redis
@@ -17,7 +18,8 @@ services:
     volumes:
       - cache:/data
     ports:
-      - "6379:6379"
+      - "${REDIS_PORT}:6379"
+
   rabbitmq:
     image: rabbitmq:management
     container_name: rabbit
@@ -26,18 +28,20 @@ services:
     volumes:
       - queue:/var/lib/rabbitmq
     ports:
-      - "5672:5672" # COMMUNICATION
-      - "15672:15672" # WEB UI
+      - "${RABBITMQ_PORT}:5672" # COMMUNICATION
+      - "${RABBITMQ_MANAGEMENT_PORT}:15672" # WEB UI
+
   seq:
     image: datalust/seq:2025
     container_name: seq
     env_file:
       - .env
     ports:
-      - "5341:5341" # COMMUNICATION
-      - "5342:80" # WEB UI
+      - "${SEQ_PORT}:5341" # COMMUNICATION
+      - "${SEQ_WEB_PORT}:80" # WEB UI
     volumes:
       - log:/data
+
 volumes:
   db:
   cache:

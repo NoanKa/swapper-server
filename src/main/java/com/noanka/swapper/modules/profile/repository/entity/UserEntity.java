@@ -17,6 +17,15 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "User")
 public class UserEntity extends EntityBase {
+
+    public UserEntity(String name, String lastName, LocalDate birthdate, AuthEntity auth, List<AssetEntity> assets) {
+        this.name = name;
+        this.lastName = lastName;
+        this.birthdate = birthdate;
+        this.auth = auth;
+        this.assets = assets;
+    }
+
     @Column(nullable = false, length = 20)
     private String name;
     @Column(nullable = false, length = 20)

@@ -15,6 +15,14 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "Asset")
 public class AssetEntity extends EntityBase {
+
+    public AssetEntity(String name, List<TypeEntity> types, List<AttributeEntity> attributes, UserEntity owner) {
+        this.name = name;
+        this.types = types;
+        this.attributes = attributes;
+        this.owner = owner;
+    }
+
     @Column(nullable = false, length = 50)
     private String name;
 
