@@ -1,15 +1,15 @@
 services:
   postgres:
-    image: postgres:latest
+    image: postgres:18
     container_name: postgres
     env_file:
       - .env
     volumes:
-      - db:/var/lib/postgresql/data
+      - db:/var/lib/postgresql
     ports:
       - "5432:5432"
   redis:
-    image: redis:latest
+    image: redis:8.2.2
     container_name: redis
     env_file:
       - .env
@@ -29,7 +29,7 @@ services:
       - "5672:5672" # COMMUNICATION
       - "15672:15672" # WEB UI
   seq:
-    image: datalust/seq:latest
+    image: datalust/seq:2025
     container_name: seq
     env_file:
       - .env

@@ -18,16 +18,10 @@ if [ -f .env ] ; then
     RABBITMQ_DEFAULT_VHOST="/"
     SEQ_FIRSTRUN_ADMINUSERNAME="admin"
     SEQ_FIRSTRUN_ADMINPASSWORD=$(generate_random_password)
+    SEQ_FIRSTRUN_ADMINPASSWORDHASH=$(echo "$SEQ_FIRSTRUN_ADMINPASSWORD" | docker run --rm -i datalust/seq:2025 config hash)
     ACCEPT_EULA="Y"
     SEQ_FIRSTRUN_APIKEY=$(generate_random_password)
     SEQ_FIRSTRUN_APIKEYSCOPES="Ingest"
-
-    OS=$(uname | tr '[:upper:]' '[:lower:]')
-    if [ "$OS" = "darwin" ]; then
-      SEQ_FIRSTRUN_ADMINPASSWORDHASH=$(docker run --rm epicsoft/bcrypt hash "$SEQ_ADMIN_PASSWORD" | base64 -b 0)
-    else
-      SEQ_FIRSTRUN_ADMINPASSWORDHASH=$(docker run --rm epicsoft/bcrypt hash "$SEQ_ADMIN_PASSWORD" | base64 | tr -d '\n')
-    fi
 
 cat > .env <<EOL
 # --- Redis ---
@@ -42,6 +36,7 @@ RABBITMQ_DEFAULT_PASSW=$RABBITMQ_DEFAULT_PASS
 RABBITMQ_DEFAULT_VHOST=$RABBITMQ_DEFAULT_VHOST
 # --- Seq ---
 SEQ_FIRSTRUN_ADMINUSERNAME=$SEQ_FIRSTRUN_ADMINUSERNAME
+SEQ_FIRSTRUN_ADMINPASSWORD=$SEQ_FIRSTRUN_ADMINPASSWORD
 SEQ_FIRSTRUN_ADMINPASSWORDHASH=$SEQ_FIRSTRUN_ADMINPASSWORDHASH
 ACCEPT_EULA=$ACCEPT_EULA
 SEQ_FIRSTRUN_APIKEY=$SEQ_FIRSTRUN_APIKEY
@@ -52,8 +47,6 @@ EOL
 fi
 
 docker compose up -d
-
-echo "SEQ_FIRSTRUN_ADMINPASSWORD=$SEQ_FIRSTRUN_ADMINPASSWORD" >> .env
 
 echo
 read -r -p "Press Enter to continue..." _
