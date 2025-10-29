@@ -34,7 +34,7 @@ public class AssetEntity extends EntityBase {
     )
     private List<TypeEntity> types;
 
-    @OneToMany(mappedBy = "asset", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "assetId")
     private List<AttributeEntity> attributes;
 

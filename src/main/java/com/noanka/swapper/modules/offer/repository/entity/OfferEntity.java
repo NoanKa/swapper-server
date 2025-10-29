@@ -18,7 +18,7 @@ public class OfferEntity extends EntityBase {
     @Enumerated(EnumType.STRING)
     private OfferStatus status;
 
-    @OneToMany(mappedBy = "offer", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "offerId")
     private List<OfferAssetEntity> assets;
 
@@ -26,6 +26,7 @@ public class OfferEntity extends EntityBase {
     @JoinColumn(name = "userId")
     private UserEntity owner;
 
-    @OneToMany(mappedBy = "offer", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JoinColumn(name = "offerId")
     private List<CommentEntity> comments;
 }

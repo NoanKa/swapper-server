@@ -1,4 +1,4 @@
-package com.noanka.swapper.utilities.handler;
+package com.noanka.swapper.configuration.handler;
 
 import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.http.ResponseEntity;

@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class OfferAssetEntity extends EntityBase {
     @Column(nullable = false)
     @Convert(converter = BooleanToStringConverter.class)
-    private boolean offerOrAsset;
+    private Boolean offerOrAsset;
 
     @ManyToOne
     @JoinColumn(name = "assetId")
@@ -24,12 +24,12 @@ public class OfferAssetEntity extends EntityBase {
 
         @Override
         public String convertToDatabaseColumn(Boolean attribute) {
-            return attribute ? "OFFER" : "ASSET";
+            return attribute == null ? null : (attribute ? "OFFER" : "ASSET");
         }
 
         @Override
         public Boolean convertToEntityAttribute(String dbData) {
-            return dbData.equalsIgnoreCase("OFFER");
+            return dbData == null ? null : dbData.equalsIgnoreCase("OFFER");
         }
     }
 }

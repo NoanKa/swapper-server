@@ -37,6 +37,6 @@ public class UserEntity extends EntityBase {
     @JoinColumn(name = "authId")
     private AuthEntity auth;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<AssetEntity> assets;
 }
