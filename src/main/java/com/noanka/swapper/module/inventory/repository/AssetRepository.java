@@ -1,0 +1,11 @@
+package com.noanka.swapper.module.inventory.repository;
+
+import com.noanka.swapper.module.inventory.repository.entity.AssetEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.UUID;
+
+@Repository
+public interface AssetRepository extends JpaRepository<AssetEntity, UUID> {
+}
