@@ -15,7 +15,7 @@ import java.util.List;
 @Entity
 @Builder
 @NoArgsConstructor
-@Table(name = "User")
+@Table(name = "AppUser")
 public class UserEntity extends EntityBase {
 
     public UserEntity(String name, String lastName, LocalDate birthdate, AuthEntity auth, List<AssetEntity> assets) {
