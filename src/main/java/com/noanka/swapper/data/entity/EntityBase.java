@@ -1,4 +1,4 @@
-package com.noanka.swapper.utility.entity;
+package com.noanka.swapper.data.entity;
 
 import jakarta.persistence.*;
 

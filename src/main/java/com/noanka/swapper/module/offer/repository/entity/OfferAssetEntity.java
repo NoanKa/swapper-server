@@ -1,7 +1,7 @@
 package com.noanka.swapper.module.offer.repository.entity;
 
 import com.noanka.swapper.module.inventory.repository.entity.AssetEntity;
-import com.noanka.swapper.utility.entity.EntityBase;
+import com.noanka.swapper.data.entity.EntityBase;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;

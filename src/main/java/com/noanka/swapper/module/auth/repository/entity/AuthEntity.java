@@ -1,6 +1,6 @@
 package com.noanka.swapper.module.auth.repository.entity;
 
-import com.noanka.swapper.utility.entity.EntityBase;
+import com.noanka.swapper.data.entity.EntityBase;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;

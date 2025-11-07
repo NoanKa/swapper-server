@@ -1,6 +1,6 @@
 package com.noanka.swapper.module.inventory.repository.entity;
 
-import com.noanka.swapper.utility.entity.EntityBase;
+import com.noanka.swapper.data.entity.EntityBase;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;

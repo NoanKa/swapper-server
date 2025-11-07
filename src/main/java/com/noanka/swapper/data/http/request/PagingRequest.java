@@ -1,4 +1,4 @@
-package com.noanka.swapper.utility.http.request;
+package com.noanka.swapper.data.http.request;
 
 public class PagingRequest {
     private int dateTime;
