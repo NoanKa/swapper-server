@@ -6,6 +6,7 @@ import com.noanka.swapper.module.auth.controller.http.request.RegisterRequest;
 import com.noanka.swapper.data.http.response.ResponseBase;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,7 @@ public class AuthController {
     }
 
     @GetMapping("refresh")
-    public ResponseBase<TokenDto> Refresh(@RequestHeader("access-token") String accessToken, @RequestHeader("refresh-token") String refreshToken){
+    public ResponseBase<TokenDto> Refresh(@Valid @NotBlank @RequestHeader("access-token") String accessToken, @Valid @NotBlank @RequestHeader("refresh-token") String refreshToken){
         throw new NotImplementedException();
     }
 }
