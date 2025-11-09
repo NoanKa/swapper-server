@@ -1,8 +1,11 @@
 #!/bin/bash
 
 generate_random_password() {
-    tr -dc 'A-Za-z0-9' < /dev/urandom | head -c 16
+    local length=${1:-16}
+    tr -dc 'A-Za-z0-9' < /dev/urandom | head -c "$length"
 }
+
+docker compose down -v
 
 if [ -f .env ] ; then
     echo ".env file already exists. Skipping environment variable setup."
@@ -10,19 +13,22 @@ else
     echo "Creating .env file with default values."
 
     # --- Generate passwords ---
-    REDIS_PASSWORD=$(generate_random_password)
-    POSTGRES_PASSWORD=$(generate_random_password)
+    REDIS_PASSWORD=$(generate_random_password 16)
+    POSTGRES_PASSWORD=$(generate_random_password 16)
     POSTGRES_USER="admin"
     POSTGRES_DB="swapper"
-    RABBITMQ_DEFAULT_PASS=$(generate_random_password)
+    RABBITMQ_DEFAULT_PASS=$(generate_random_password 16)
     RABBITMQ_DEFAULT_USER="admin"
     RABBITMQ_DEFAULT_VHOST="/"
     SEQ_FIRSTRUN_ADMINUSERNAME="admin"
-    SEQ_FIRSTRUN_ADMINPASSWORD=$(generate_random_password)
+    SEQ_FIRSTRUN_ADMINPASSWORD=$(generate_random_password 16)
     SEQ_FIRSTRUN_ADMINPASSWORDHASH=$(echo "$SEQ_FIRSTRUN_ADMINPASSWORD" | docker run --rm -i datalust/seq:2025 config hash)
-    SEQ_FIRSTRUN_APIKEY=$(generate_random_password)
+    SEQ_FIRSTRUN_APIKEY=$(generate_random_password 16)
     SEQ_FIRSTRUN_APIKEYSCOPES="Ingest"
     ACCEPT_EULA="Y"
+    JWT_SECRET_KEY=$(generate_random_password 32 | base64 | tr -d '\n')
+    JWT_ACCESS_EXPIRATION=3600
+    JWT_REFRESH_EXPIRATION=2592000
 
     # --- Docker Compose service hostnames & ports ---
     POSTGRES_HOST="postgres"
@@ -68,6 +74,11 @@ SEQ_FIRSTRUN_ADMINPASSWORDHASH=$SEQ_FIRSTRUN_ADMINPASSWORDHASH
 ACCEPT_EULA=$ACCEPT_EULA
 SEQ_FIRSTRUN_APIKEY=$SEQ_FIRSTRUN_APIKEY
 SEQ_FIRSTRUN_APIKEYSCOPES=$SEQ_FIRSTRUN_APIKEYSCOPES
+
+# --- JWT ---
+JWT_SECRET_KEY=$JWT_SECRET_KEY
+JWT_ACCESS_EXPIRATION=$JWT_ACCESS_EXPIRATION
+JWT_REFRESH_EXPIRATION=$JWT_REFRESH_EXPIRATION
 EOL
 
     echo ".env file has been created with default values."

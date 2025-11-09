@@ -42,21 +42,21 @@ services:
     volumes:
       - log:/data
 
-  swapper-backend:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: swapper
-    image: swapper:latest
-    ports:
-      - "3000:3000"
-    env_file:
-      - .env
-    depends_on:
-      - postgres
-      - redis
-      - rabbitmq
-      - seq
+#  swapper-backend:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    container_name: swapper
+#    image: swapper:latest
+#    ports:
+#      - "3000:3000"
+#    env_file:
+#      - .env
+#    depends_on:
+#      - postgres
+#      - redis
+#      - rabbitmq
+#      - seq
 
 volumes:
   db:
