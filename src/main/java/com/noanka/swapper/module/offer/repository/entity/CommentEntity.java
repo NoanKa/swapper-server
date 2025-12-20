@@ -13,6 +13,8 @@ import lombok.NoArgsConstructor;
 public class CommentEntity extends EntityBase {
     @Column(nullable = false, length = 100)
     private String message;
+    @Column(nullable = false)
+    private Float rate;
 
     @ManyToOne
     @JoinColumn(name = "userId")

@@ -1,8 +1,10 @@
 package com.noanka.swapper.configuration.security;
 
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -19,6 +21,7 @@ import java.util.Base64;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
+@Profile("!local")
 public class SecurityConfig {
 
     @Value("${spring.security.oauth2.resourceserver.jwt.secret}")
@@ -40,7 +43,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public JwtDecoder decoder() {
+    public JwtDecoder decoder(@Value("${spring.security.oauth2.resourceserver.jwt.secret}")String base64Secret) {
         byte[] keyBytes = Base64.getDecoder().decode(base64Secret);
         SecretKeySpec key = new SecretKeySpec(keyBytes, "HmacSHA256");
         return NimbusJwtDecoder.withSecretKey(key).build();
