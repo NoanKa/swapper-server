@@ -1,4 +1,4 @@
-package com.noanka.swapper.utility.service;
+package com.noanka.swapper.configuration.handler;
 
 import com.noanka.swapper.module.profile.repository.entity.UserEntity;
 import io.jsonwebtoken.Jwts;
@@ -6,14 +6,14 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
 
-@Service
+@Component
 @Profile("!local")
-public class JwtService {
+public class JwtHandler {
     @Value("${spring.security.oauth2.resourceserver.jwt.secret}")
     private String SECRET_KEY;
     @Value("${jwt.access.expiration}")
