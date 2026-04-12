@@ -4,28 +4,21 @@ import com.noanka.swapper.module.auth.repository.entity.AuthEntity;
 import com.noanka.swapper.module.inventory.repository.entity.AssetEntity;
 import com.noanka.swapper.data.entity.EntityBase;
 import jakarta.persistence.*;
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Data
 @Entity
-@Builder
+@SuperBuilder
+@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "AppUser")
 public class UserEntity extends EntityBase {
-
-    public UserEntity(String name, String lastName, LocalDate birthdate, AuthEntity auth, List<AssetEntity> assets) {
-        this.name = name;
-        this.lastName = lastName;
-        this.birthdate = birthdate;
-        this.auth = auth;
-        this.assets = assets;
-    }
-
     @Column(nullable = false, length = 20)
     private String name;
     @Column(nullable = false, length = 20)
@@ -33,7 +26,7 @@ public class UserEntity extends EntityBase {
     @Column(nullable = false)
     private LocalDate birthdate;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "authId")
     private AuthEntity auth;
 

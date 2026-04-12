@@ -1,5 +1,6 @@
 package com.noanka.swapper.configuration.handler;
 
+import com.noanka.swapper.data.constant.BusinessException;
 import com.noanka.swapper.data.http.response.ResponseBase;
 import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +15,8 @@ public class ErrorHandler {
         throw new NotImplementedException();
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ResponseBase> handleValidationErrors(MethodArgumentNotValidException ex){
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<ResponseBase> handleValidationErrors(BusinessException ex){
         throw new NotImplementedException();
     }
 }

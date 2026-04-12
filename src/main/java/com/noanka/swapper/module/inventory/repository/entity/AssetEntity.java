@@ -3,15 +3,15 @@ package com.noanka.swapper.module.inventory.repository.entity;
 import com.noanka.swapper.module.profile.repository.entity.UserEntity;
 import com.noanka.swapper.data.entity.EntityBase;
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
 @Data
 @Entity
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @Table(name = "Asset")
 public class AssetEntity extends EntityBase {

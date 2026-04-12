@@ -1,17 +1,23 @@
 package com.noanka.swapper.data.http.response;
 
+import com.noanka.swapper.data.constant.InfoCode;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 
+@Getter
+@Setter
 public class ResponseBase<T> {
     private final T data;
     private final List<String> message;
     private final List<String> userMessage;
     private final boolean success;
 
-    public ResponseBase(List<String> message, List<String> userMessage, boolean success){
+    public ResponseBase(InfoCode infoCode, boolean success){
         this.data = null;
-        this.message = message;
-        this.userMessage = userMessage;
+        this.message = infoCode.getMessage();
+        this.userMessage = infoCode.getUserMessage();
         this.success = success;
     }
 
@@ -20,21 +26,5 @@ public class ResponseBase<T> {
         this.message = message;
         this.userMessage = userMessage;
         this.success = success;
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    public List<String> getMessage() {
-        return message;
-    }
-
-    public List<String> getUserMessage() {
-        return userMessage;
-    }
-
-    public boolean isSuccess() {
-        return success;
     }
 }

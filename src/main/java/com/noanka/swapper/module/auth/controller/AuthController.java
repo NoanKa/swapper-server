@@ -1,5 +1,6 @@
 package com.noanka.swapper.module.auth.controller;
 
+import com.noanka.swapper.data.constant.BusinessException;
 import com.noanka.swapper.module.auth.controller.http.dto.TokenDto;
 import com.noanka.swapper.module.auth.controller.http.request.LoginRequest;
 import com.noanka.swapper.module.auth.controller.http.request.RegisterRequest;
@@ -23,7 +24,7 @@ public class AuthController {
 
     @Operation(summary = "registering a new user")
     @PostMapping("register")
-    public ResponseEntity<ResponseBase> Register(@Valid @RequestBody RegisterRequest registerRequest){
+    public ResponseEntity<ResponseBase> Register(@Valid @RequestBody RegisterRequest registerRequest) throws BusinessException {
         return new ResponseEntity<ResponseBase>(authService.Register(registerRequest), HttpStatus.OK);
     }
 
